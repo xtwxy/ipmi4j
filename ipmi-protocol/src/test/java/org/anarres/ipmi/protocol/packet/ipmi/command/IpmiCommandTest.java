@@ -4,24 +4,29 @@
  */
 package org.anarres.ipmi.protocol.packet.ipmi.command;
 
-import com.google.common.primitives.UnsignedBytes;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.handler.logging.LoggingHandler;
+import static org.junit.Assert.assertArrayEquals;
+
 import java.nio.ByteBuffer;
+
 import javax.annotation.Nonnull;
+
+import org.anarres.ipmi.protocol.client.session.IpmiPacketContext;
+import org.anarres.ipmi.protocol.client.session.IpmiSessionManager;
 import org.anarres.ipmi.protocol.packet.ipmi.Ipmi15SessionWrapper;
 import org.anarres.ipmi.protocol.packet.ipmi.IpmiChannelPrivilegeLevel;
 import org.anarres.ipmi.protocol.packet.ipmi.IpmiLun;
 import org.anarres.ipmi.protocol.packet.ipmi.IpmiSessionWrapper;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAuthenticationCapabilitiesRequest;
-import org.anarres.ipmi.protocol.client.session.IpmiPacketContext;
-import org.anarres.ipmi.protocol.client.session.IpmiSessionManager;
 import org.anarres.ipmi.protocol.packet.rmcp.RmcpPacket;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static org.junit.Assert.*;
+
+import com.google.common.primitives.UnsignedBytes;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.handler.logging.LoggingHandler;
 
 /**
  *

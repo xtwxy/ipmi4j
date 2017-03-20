@@ -4,16 +4,19 @@
  */
 package org.anarres.ipmi.protocol.packet.asf;
 
-import com.google.common.primitives.UnsignedBytes;
 import java.nio.ByteBuffer;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
 import org.anarres.ipmi.protocol.IanaEnterpriseNumber;
-import org.anarres.ipmi.protocol.client.visitor.IpmiClientRmcpMessageHandler;
-import org.anarres.ipmi.protocol.packet.common.AbstractWireable;
 import org.anarres.ipmi.protocol.client.session.IpmiPacketContext;
+import org.anarres.ipmi.protocol.client.visitor.IpmiClientRmcpMessageHandler;
 import org.anarres.ipmi.protocol.client.visitor.IpmiHandlerContext;
+import org.anarres.ipmi.protocol.packet.common.AbstractWireable;
 import org.anarres.ipmi.protocol.packet.rmcp.RmcpMessageClass;
+
+import com.google.common.primitives.UnsignedBytes;
 
 /**
  * ASF RMCP Data (Enterprise number 0x4542).
@@ -61,6 +64,7 @@ public abstract class AbstractAsfData extends AbstractWireable implements AsfRmc
                 + 1 // message type
                 + 1 // message tag
                 + 1 // data length
+                + 1 // reserved
                 + getDataWireLength();
     }
 

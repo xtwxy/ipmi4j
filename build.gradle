@@ -3,6 +3,8 @@ buildscript {
 }
 
 apply plugin: 'org.anarres.stdproject'
+apply plugin: 'eclipse'
+
 stdproject {
 	javadocLink "https://mina.apache.org/mina-project/apidocs/"
 	javadocLink "http://netty.io/4.0/api/"
@@ -29,6 +31,7 @@ project(':ipmi-protocol') {
 		compile 'com.google.code.findbugs:annotations:2.0.3'
 		compile 'org.slf4j:slf4j-api:1.7.12'
 		compile 'com.google.guava:guava:18.0'
+		compile 'io.netty:netty-all:4.0.23.Final'
 
 		testCompile 'commons-net:commons-net:3.3'
 		testCompile 'io.netty:netty-all:4.0.23.Final'
