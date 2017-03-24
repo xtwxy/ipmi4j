@@ -23,10 +23,10 @@ public class AsfPresencePingDataTest {
 
 	private static final int WIRE_LENGTH = 12;
 	private static final byte[] byteSequence = {
-			0x06, 0x00, 0x00, 0x06, 0x00, 0x00, 0x11, (byte) 0xbe, 
+			0x06, 0x00, (byte) 0xff, 0x06, 0x00, 0x00, 0x11, (byte) 0xbe, 
 			(byte) 0x80, 0x00, 0x00, 0x00
-			};
-
+	};
+	
 	private IpmiPacketContext context;
 	
 	@Before
@@ -42,7 +42,7 @@ public class AsfPresencePingDataTest {
 	public void testMarshal() throws Exception {
 		RmcpPacket packet = new RmcpPacket();
 		
-		packet.withSequenceNumber((byte)0);
+		packet.withSequenceNumber((byte)0xff);
 		packet.withRemoteAddress(new InetSocketAddress(host, port));
 		
 		AsfPresencePingData data = new AsfPresencePingData();
@@ -70,7 +70,7 @@ public class AsfPresencePingDataTest {
         
         packet.fromWire(context, buf);
         
-        assertEquals(0, packet.getSequenceNumber());
+        assertEquals((byte)0xff, packet.getSequenceNumber());
         assertEquals(RmcpMessageClass.ASF, packet.getMessageClass());
         assertEquals(RmcpMessageRole.REQ, packet.getMessageRole());
         
