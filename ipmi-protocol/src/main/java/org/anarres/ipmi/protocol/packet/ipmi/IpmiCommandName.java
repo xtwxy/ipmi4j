@@ -4,11 +4,15 @@
  */
 package org.anarres.ipmi.protocol.packet.ipmi;
 
-import com.google.common.base.Throwables;
-import com.google.common.primitives.UnsignedBytes;
+import static org.anarres.ipmi.protocol.packet.ipmi.IpmiChannelPrivilegeLevel.Administrator;
+import static org.anarres.ipmi.protocol.packet.ipmi.IpmiChannelPrivilegeLevel.Operator;
+import static org.anarres.ipmi.protocol.packet.ipmi.IpmiChannelPrivilegeLevel.Unprotected;
+import static org.anarres.ipmi.protocol.packet.ipmi.IpmiChannelPrivilegeLevel.User;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
 import org.anarres.ipmi.protocol.packet.common.Code;
 import org.anarres.ipmi.protocol.packet.ipmi.command.IpmiCommand;
 import org.anarres.ipmi.protocol.packet.ipmi.command.IpmiRequest;
@@ -41,6 +45,8 @@ import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelCipherS
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelCipherSuitesResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelInfoRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelInfoResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetSessionChallengeRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetSessionChallengeResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.SetSessionPrivilegeLevelRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.SetSessionPrivilegeLevelResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.GetSDRRepositoryInfoRequest;
@@ -59,7 +65,9 @@ import org.anarres.ipmi.protocol.packet.ipmi.command.sensor.GetSensorThresholdRe
 import org.anarres.ipmi.protocol.packet.ipmi.command.sensor.GetSensorThresholdResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.sol.GetSOLConfigurationParametersRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.sol.GetSOLConfigurationParametersResponse;
-import static org.anarres.ipmi.protocol.packet.ipmi.IpmiChannelPrivilegeLevel.*;
+
+import com.google.common.base.Throwables;
+import com.google.common.primitives.UnsignedBytes;
 
 /**
  * [IPMI2] Appendix G, pages 591-596.
@@ -108,7 +116,7 @@ public enum IpmiCommandName implements Code.Wrapper {
     SetSystemInfoParameters("Set System Info Parameters", IpmiNetworkFunction.App, 0x58, Administrator),
     GetSystemInfoParameters("Get System Info Parameters", IpmiNetworkFunction.App, 0x59, User),
     GetChannelAuthenticationCapabilities("Get Channel Authentication Capabilities", IpmiNetworkFunction.App, 0x38, Unprotected, GetChannelAuthenticationCapabilitiesRequest.class, GetChannelAuthenticationCapabilitiesResponse.class),
-    GetSessionChallenge("Get Session Challenge", IpmiNetworkFunction.App, 0x39, Unprotected),
+    GetSessionChallenge("Get Session Challenge", IpmiNetworkFunction.App, 0x39, Unprotected, GetSessionChallengeRequest.class, GetSessionChallengeResponse.class),
     ActivateSession("Activate Session", IpmiNetworkFunction.App, 0x3A, Unprotected),
     SetSessionPrivilegeLevel("Set Session Privilege Level", IpmiNetworkFunction.App, 0x3B, User, SetSessionPrivilegeLevelRequest.class, SetSessionPrivilegeLevelResponse.class),
     CloseSession("Close Session", IpmiNetworkFunction.App, 0x3C, IpmiChannelPrivilegeLevel.Callback, CloseSessionRequest.class, CloseSessionResponse.class),

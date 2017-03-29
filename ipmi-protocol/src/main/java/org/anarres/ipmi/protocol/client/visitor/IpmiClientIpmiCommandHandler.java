@@ -4,51 +4,54 @@
 package org.anarres.ipmi.protocol.client.visitor;
 
 import javax.annotation.Nonnull;
+
 import org.anarres.ipmi.protocol.packet.ipmi.command.IpmiCommand;
 import org.anarres.ipmi.protocol.packet.ipmi.command.IpmiRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.IpmiResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.global.GetDeviceIdRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.global.GetDeviceIdResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAuthenticationCapabilitiesRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAuthenticationCapabilitiesResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.SetSessionPrivilegeLevelRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.SetSessionPrivilegeLevelResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.CloseSessionRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.CloseSessionResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAccessRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAccessResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelInfoRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelInfoResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelCipherSuitesRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelCipherSuitesResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.chassis.ChassisControlRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.chassis.ChassisControlResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.chassis.GetChassisCapabilitiesRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.chassis.GetChassisCapabilitiesResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.chassis.GetChassisStatusRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.chassis.GetChassisStatusResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.chassis.ChassisControlRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.chassis.ChassisControlResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.chassis.GetSystemRestartCauseRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.chassis.GetSystemRestartCauseResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sensor.GetSensorThresholdRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sensor.GetSensorThresholdResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sensor.GetSensorReadingRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sensor.GetSensorReadingResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.fru.GetFRUInventoryAreaInfoRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.fru.GetFRUInventoryAreaInfoResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.fru.ReadFRUDataRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.fru.ReadFRUDataResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.GetSDRRepositoryInfoRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.GetSDRRepositoryInfoResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.ReserveSDRRepositoryRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.ReserveSDRRepositoryResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.GetSDRRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.GetSDRResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sel.GetSELInfoRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sel.GetSELInfoResponse;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sel.GetSELAllocationInfoRequest;
-import org.anarres.ipmi.protocol.packet.ipmi.command.sel.GetSELAllocationInfoResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.global.GetDeviceIdRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.global.GetDeviceIdResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.lan.GetLANConfigurationParametersRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.lan.GetLANConfigurationParametersResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.CloseSessionRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.CloseSessionResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAccessRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAccessResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAuthenticationCapabilitiesRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAuthenticationCapabilitiesResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelCipherSuitesRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelCipherSuitesResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelInfoRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelInfoResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetSessionChallengeRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetSessionChallengeResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.SetSessionPrivilegeLevelRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.SetSessionPrivilegeLevelResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.GetSDRRepositoryInfoRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.GetSDRRepositoryInfoResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.GetSDRRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.GetSDRResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.ReserveSDRRepositoryRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sdr.ReserveSDRRepositoryResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sel.GetSELAllocationInfoRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sel.GetSELAllocationInfoResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sel.GetSELInfoRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sel.GetSELInfoResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sensor.GetSensorReadingRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sensor.GetSensorReadingResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sensor.GetSensorThresholdRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.sensor.GetSensorThresholdResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.sol.GetSOLConfigurationParametersRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.sol.GetSOLConfigurationParametersResponse;
 
@@ -292,6 +295,18 @@ public interface IpmiClientIpmiCommandHandler {
         public void handleGetSOLConfigurationParametersResponse(IpmiHandlerContext context, GetSOLConfigurationParametersResponse response) {
             handleResponse(context, response);
         }
+
+		@Override
+		public void handleGetSessionChallengeRequest(IpmiHandlerContext context,
+				GetSessionChallengeRequest request) {
+            handleRequest(context, request);
+		}
+
+		@Override
+		public void handleGetSessionChallengeResponse(IpmiHandlerContext context,
+				GetSessionChallengeResponse response) {
+            handleResponse(context, response);
+		}
     }
 
     public void handleGetDeviceIdRequest(@Nonnull IpmiHandlerContext context, @Nonnull GetDeviceIdRequest request);
@@ -381,4 +396,8 @@ public interface IpmiClientIpmiCommandHandler {
     public void handleGetSOLConfigurationParametersRequest(@Nonnull IpmiHandlerContext context, @Nonnull GetSOLConfigurationParametersRequest request);
 
     public void handleGetSOLConfigurationParametersResponse(@Nonnull IpmiHandlerContext context, @Nonnull GetSOLConfigurationParametersResponse response);
+
+	public void handleGetSessionChallengeRequest(@Nonnull IpmiHandlerContext context, GetSessionChallengeRequest request);
+
+	public void handleGetSessionChallengeResponse(@Nonnull IpmiHandlerContext context, @Nonnull GetSessionChallengeResponse response);
 }

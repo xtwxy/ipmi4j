@@ -131,8 +131,8 @@ public abstract class AbstractPacket extends AbstractWireable implements Packet 
         buffer.put((byte) 0x00); // ASF reserved
         buffer.put(getSequenceNumber());
         byte messageClassByte = getMessageClass().getCode();
-        if (RmcpMessageRole.ACK.equals(getMessageRole()))
-            messageClassByte |= 0x80;
+//        if (RmcpMessageRole.ACK.equals(getMessageRole()))
+//            messageClassByte |= 0x80;
         buffer.put(messageClassByte);
     }
 

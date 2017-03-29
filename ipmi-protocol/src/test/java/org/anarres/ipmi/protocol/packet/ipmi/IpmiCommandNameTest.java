@@ -4,16 +4,13 @@
  */
 package org.anarres.ipmi.protocol.packet.ipmi;
 
-import com.google.common.io.CharSink;
-import com.google.common.io.CharSource;
-import com.google.common.io.Files;
-import com.google.common.io.Resources;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
 import org.anarres.ipmi.protocol.packet.asf.AsfRmcpMessageType;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -25,6 +22,11 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.io.CharSink;
+import com.google.common.io.CharSource;
+import com.google.common.io.Files;
+import com.google.common.io.Resources;
 
 /**
  * This is really a code generator, not a test.
