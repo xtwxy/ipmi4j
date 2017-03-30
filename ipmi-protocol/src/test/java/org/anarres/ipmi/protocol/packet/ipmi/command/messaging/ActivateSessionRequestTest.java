@@ -17,7 +17,6 @@ import org.anarres.ipmi.protocol.packet.ipmi.payload.RequestedMaximumPrivilegeLe
 import org.anarres.ipmi.protocol.packet.rmcp.RmcpMessageClass;
 import org.anarres.ipmi.protocol.packet.rmcp.RmcpMessageRole;
 import org.anarres.ipmi.protocol.packet.rmcp.RmcpPacket;
-import org.anarres.ipmi.protocol.util.ByteArrayPrinter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -84,13 +83,10 @@ public class ActivateSessionRequestTest {
 		sessionWrapper.setIpmiSessionId(IPMI_SESSION_ID);
 		sessionWrapper.setIpmiSessionSequenceNumber(IPMI_SSN_SEQ_NUMBER);
 		sessionWrapper.withAuthenticationType(IpmiSessionAuthenticationType.MD5);
-		byte[] bytes = Arrays.copyOfRange(WIRE, 13, 29);
-		ByteArrayPrinter.print(bytes, System.out);
-		sessionWrapper.withMessageAuthenticationCode(bytes);
+		byte[] code = Arrays.copyOfRange(WIRE, 13, 29);
+		sessionWrapper.withMessageAuthenticationCode(code);
 		
 		packet.withData(sessionWrapper);
-		
-		System.out.println(packet);
 		
 		final int wireLength = packet.getWireLength(context);
 		
@@ -98,8 +94,6 @@ public class ActivateSessionRequestTest {
         packet.toWire(context, buf);
         buf.flip();
        
-        ByteArrayPrinter.print(WIRE, System.out);
-        ByteArrayPrinter.print(buf.array(), System.out);
         assertEquals(WIRE.length, wireLength);
         assertArrayEquals(WIRE, buf.array());
 	
@@ -115,7 +109,6 @@ public class ActivateSessionRequestTest {
         buf.flip();
         
         packet.fromWire(context, buf);
-		System.out.println(packet);
         
 		assertEquals(RMCP_PACKET_SEQ_NUMBER, packet.getSequenceNumber());
         assertEquals(RmcpMessageClass.IPMI, packet.getMessageClass());

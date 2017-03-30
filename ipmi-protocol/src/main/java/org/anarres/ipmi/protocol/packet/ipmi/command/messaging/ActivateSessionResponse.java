@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.anarres.ipmi.protocol.packet.ipmi.command.messaging;
 
 import java.nio.ByteBuffer;
@@ -14,11 +10,6 @@ import org.anarres.ipmi.protocol.packet.ipmi.IpmiSessionAuthenticationType;
 import org.anarres.ipmi.protocol.packet.ipmi.command.AbstractIpmiResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.payload.RequestedMaximumPrivilegeLevel;
 
-/**
- * [IPMI2] Section 22.17, table 22-23, page 294.
- *
- * @author shevek
- */
 public class ActivateSessionResponse extends AbstractIpmiResponse {
 
 	private IpmiSessionAuthenticationType authenticationType;

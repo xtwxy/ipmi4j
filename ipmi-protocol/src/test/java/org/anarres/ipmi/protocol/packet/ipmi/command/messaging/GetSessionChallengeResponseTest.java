@@ -14,7 +14,6 @@ import org.anarres.ipmi.protocol.packet.ipmi.payload.IpmiPayloadType;
 import org.anarres.ipmi.protocol.packet.rmcp.RmcpMessageClass;
 import org.anarres.ipmi.protocol.packet.rmcp.RmcpMessageRole;
 import org.anarres.ipmi.protocol.packet.rmcp.RmcpPacket;
-import org.anarres.ipmi.protocol.util.ByteArrayPrinter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -76,15 +75,12 @@ public class GetSessionChallengeResponseTest {
 		data.setIpmiSessionSequenceNumber(IPMI_SSN_SEQ_NUMBER);
 		
 		packet.withData(data);
-		System.out.println(packet);
 		final int wireLength = packet.getWireLength(context);
 		
         ByteBuffer buf = ByteBuffer.allocate(wireLength);
         packet.toWire(context, buf);
         buf.flip();
        
-        ByteArrayPrinter.print(WIRE, System.out);
-        ByteArrayPrinter.print(buf.array(), System.out);
         assertEquals(WIRE.length, wireLength);
         assertArrayEquals(WIRE, buf.array());
 	
@@ -100,7 +96,6 @@ public class GetSessionChallengeResponseTest {
         buf.flip();
         
         packet.fromWire(context, buf);
-		System.out.println(packet);
         
 		assertEquals(RMCP_PACKET_SEQ_NUMBER, packet.getSequenceNumber());
         assertEquals(RmcpMessageClass.IPMI, packet.getMessageClass());
