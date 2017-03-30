@@ -7,15 +7,14 @@ import org.anarres.ipmi.protocol.client.visitor.IpmiHandlerContext;
 import org.anarres.ipmi.protocol.packet.common.Code;
 import org.anarres.ipmi.protocol.packet.ipmi.IpmiCommandName;
 import org.anarres.ipmi.protocol.packet.ipmi.IpmiSessionAuthenticationType;
+import org.anarres.ipmi.protocol.packet.ipmi.IpmiString;
 import org.anarres.ipmi.protocol.packet.ipmi.command.AbstractIpmiRequest;
 
 public class GetSessionChallengeRequest extends AbstractIpmiRequest {
 
-	private static final int USER_NAME_LEN_BYTES = 16;
-
 	private IpmiSessionAuthenticationType authenticationType;
 	// 17 bytes user name, 22.16 Get Session Challenge Command page 293
-    private byte[] userName = new byte[USER_NAME_LEN_BYTES];
+    private IpmiString userName = new IpmiString(16);
 
     public GetSessionChallengeRequest withAuthenticationType(IpmiSessionAuthenticationType authenticationType) {
     	this.authenticationType = authenticationType;
@@ -26,29 +25,15 @@ public class GetSessionChallengeRequest extends AbstractIpmiRequest {
     	return authenticationType;
     }
     
-    public GetSessionChallengeRequest withUserName(String userName) {
-    	if(userName != null) {
-    		if(userName.length() > USER_NAME_LEN_BYTES) {
-    			throw new IllegalArgumentException("The length of userName "
-    					+ "exceeds 16 bytes limit, offending value is: '" + userName + "'.");
-    		} else {
-
-    			for(int i = 0; i < this.userName.length; ++i) {
-    				this.userName[i] = 0x0;
-    			}
-
-    			byte[] bytes = userName.getBytes();
-    			for(int i = 0; i < bytes.length; ++i) {
-    				this.userName[i] = bytes[i];
-    			}
-    		}
-    	}
+    public GetSessionChallengeRequest withUserName(byte[] userName) {
+    	this.userName.setContent(userName);
     	return this;
     }
    
-    public String getUserName() {
-    	return new String(this.userName).trim();
+    public byte[] getUserName() {
+    	return this.userName.getContent();
     }
+    
     @Override
     public IpmiCommandName getCommandName() {
         return IpmiCommandName.GetSessionChallenge;
@@ -62,25 +47,25 @@ public class GetSessionChallengeRequest extends AbstractIpmiRequest {
     @Override
     protected int getDataWireLength() {
         return 1 // Authentication Type
-        		+ USER_NAME_LEN_BYTES;
+        		+ this.userName.length();
     }
 
     @Override
     protected void toWireData(ByteBuffer buffer) {
         buffer.put(authenticationType.getCode());
-        buffer.put(userName);
+        buffer.put(this.userName.getContent());
     }
 
     @Override
     protected void fromWireData(ByteBuffer buffer) {
     	authenticationType = Code.fromBuffer(IpmiSessionAuthenticationType.class, buffer);
-    	buffer.get(userName);
+    	buffer.get(this.userName.getContent());
     }
 
     @Override
     public void toStringBuilder(StringBuilder buf, int depth) {
         super.toStringBuilder(buf, depth);
         appendValue(buf, depth, "authenticationType", authenticationType);
-        appendValue(buf, depth, "userName", new String(userName));
+        appendValue(buf, depth, "userName", this.userName.getValue());
     }
 }

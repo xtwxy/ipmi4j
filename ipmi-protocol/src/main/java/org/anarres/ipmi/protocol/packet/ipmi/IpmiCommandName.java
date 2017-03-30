@@ -35,6 +35,8 @@ import org.anarres.ipmi.protocol.packet.ipmi.command.global.GetDeviceIdRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.global.GetDeviceIdResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.lan.GetLANConfigurationParametersRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.lan.GetLANConfigurationParametersResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.ActivateSessionRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.ActivateSessionResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.CloseSessionRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.CloseSessionResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAccessRequest;
@@ -117,7 +119,7 @@ public enum IpmiCommandName implements Code.Wrapper {
     GetSystemInfoParameters("Get System Info Parameters", IpmiNetworkFunction.App, 0x59, User),
     GetChannelAuthenticationCapabilities("Get Channel Authentication Capabilities", IpmiNetworkFunction.App, 0x38, Unprotected, GetChannelAuthenticationCapabilitiesRequest.class, GetChannelAuthenticationCapabilitiesResponse.class),
     GetSessionChallenge("Get Session Challenge", IpmiNetworkFunction.App, 0x39, Unprotected, GetSessionChallengeRequest.class, GetSessionChallengeResponse.class),
-    ActivateSession("Activate Session", IpmiNetworkFunction.App, 0x3A, Unprotected),
+    ActivateSession("Activate Session", IpmiNetworkFunction.App, 0x3A, Unprotected, ActivateSessionRequest.class, ActivateSessionResponse.class),
     SetSessionPrivilegeLevel("Set Session Privilege Level", IpmiNetworkFunction.App, 0x3B, User, SetSessionPrivilegeLevelRequest.class, SetSessionPrivilegeLevelResponse.class),
     CloseSession("Close Session", IpmiNetworkFunction.App, 0x3C, IpmiChannelPrivilegeLevel.Callback, CloseSessionRequest.class, CloseSessionResponse.class),
     GetSessionInfo("Get Session Info", IpmiNetworkFunction.App, 0x3D, User),

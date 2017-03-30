@@ -24,6 +24,8 @@ import org.anarres.ipmi.protocol.packet.ipmi.command.global.GetDeviceIdRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.global.GetDeviceIdResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.lan.GetLANConfigurationParametersRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.lan.GetLANConfigurationParametersResponse;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.ActivateSessionRequest;
+import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.ActivateSessionResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.CloseSessionRequest;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.CloseSessionResponse;
 import org.anarres.ipmi.protocol.packet.ipmi.command.messaging.GetChannelAccessRequest;
@@ -307,6 +309,18 @@ public interface IpmiClientIpmiCommandHandler {
 				GetSessionChallengeResponse response) {
             handleResponse(context, response);
 		}
+
+		@Override
+		public void handleActivateSessionRequest(IpmiHandlerContext context,
+				ActivateSessionRequest request) {
+			handleRequest(context, request);
+		}
+
+		@Override
+		public void handleActivateSessionResponse(IpmiHandlerContext context,
+				ActivateSessionResponse response) {
+            handleResponse(context, response);
+		}
     }
 
     public void handleGetDeviceIdRequest(@Nonnull IpmiHandlerContext context, @Nonnull GetDeviceIdRequest request);
@@ -400,4 +414,9 @@ public interface IpmiClientIpmiCommandHandler {
 	public void handleGetSessionChallengeRequest(@Nonnull IpmiHandlerContext context, GetSessionChallengeRequest request);
 
 	public void handleGetSessionChallengeResponse(@Nonnull IpmiHandlerContext context, @Nonnull GetSessionChallengeResponse response);
+
+	public void handleActivateSessionRequest(IpmiHandlerContext context, ActivateSessionRequest activateSessionRequest);
+
+	public void handleActivateSessionResponse(IpmiHandlerContext context,
+			ActivateSessionResponse activateSessionResponse);
 }

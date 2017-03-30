@@ -41,7 +41,7 @@ public class GetSessionChallengeResponseTest {
 	private static final IpmiLun SOURCE_LUN = IpmiLun.L0;
 	private static final byte TARGET_ADDRESS = 0x20;
 	private static final IpmiLun TARGET_LUN = IpmiLun.L0;
-	private static final String USER_NAME = "admin";
+	private static final byte[] USER_NAME = {'a', 'd', 'm', 'i', 'n', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 	private IpmiPacketContext context;
 	
