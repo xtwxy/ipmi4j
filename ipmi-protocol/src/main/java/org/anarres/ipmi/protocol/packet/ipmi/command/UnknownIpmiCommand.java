@@ -15,7 +15,7 @@ import org.anarres.ipmi.protocol.packet.ipmi.IpmiCommandName;
 public abstract class UnknownIpmiCommand extends AbstractIpmiCommand {
 
     private final IpmiCommandName commandName;
-    private byte[] data;
+    private byte[] data = new byte[0];
 
     public UnknownIpmiCommand(@Nonnull IpmiCommandName commandName) {
         this.commandName = commandName;
@@ -28,7 +28,7 @@ public abstract class UnknownIpmiCommand extends AbstractIpmiCommand {
 
     @Override
     protected int getDataWireLength() {
-        return data.length;
+        return data == null ? 0 : data.length;
     }
 
     @Override
