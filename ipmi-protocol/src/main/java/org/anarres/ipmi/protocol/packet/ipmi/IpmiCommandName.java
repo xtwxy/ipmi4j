@@ -293,6 +293,7 @@ public enum IpmiCommandName implements Code.Wrapper {
     SSIForumExtension("SSI Forum Non-IPMI Command", IpmiNetworkFunction.GroupExtension, 0x02, Unprotected),
     VITAStandardsExtension("VITA Standards Organization Non-IPMI Command", IpmiNetworkFunction.GroupExtension, 0x03, Unprotected),
     DCMIExtension("DCMI Specifications Non-IPMI Command", IpmiNetworkFunction.GroupExtension, 0xDC, Unprotected),
+    GroupExtensionUnassigned("Group Extension Unassigned", IpmiNetworkFunction.GroupExtension, 0x3E, Unprotected),
     // OEM Commands for Bridge NetFn
     // OEMCommands("OEM Commands", IpmiNetworkFunction.Bridge, 0xC0h-FE),
     // Other Bridge Commands
